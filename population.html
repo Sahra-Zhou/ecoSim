@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ecosystem Simulator</title>
+</head>
+<body>
+<style>
+    body {text-align: center;}
+    h1{font-size: 40px;}
+    h2{font-size: 26px;}
+    p {font-size: 22px;}
+    div {font-size: 20px;}
+    input{
+        width: 20%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    }
+    button.back-button{
+        text-align: left;
+        font-size: 12px;
+        padding: 5px 5px;
+        color: #000000;
+        background-color: #ffffff;
+    }
+    button.back-button:hover{background-color: #afafaf}
+
+    button.bt1 {
+    display: inline-block;
+    padding: 15px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #61a3c7;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    white-space: normal;
+    word-wrap: break-word;
+    /* width: 250px;
+    height: 250px; */
+    }
+
+    button.bt1:hover {background-color: #25748c}
+
+    button.bt1:active {
+    background-color: #3e698e;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    }
+</style>
+<form action="setup.html" method="POST"><button class="back-button">Back</button></form>
+</form><h1>Ecosystem Simulator</h1>
+<h2>Determining the Population of Selected Species</h2>
+<p>Please enter an integer between 0 and 100 for each species. This impacts how long the ecosystem can survive. 
+    Recommendations: provide around six times of preys of predators</p>
+<div id="ChosenSpecies"></div>
+<script>
+    //function getSpecies(){
+    var choices = document.getElementById('ChosenSpecies');
+    let species = JSON.parse(localStorage.getItem("Species"));
+        // var populations = Array(species.length);
+    for (var i=0; i <species.length; i++){
+            // var pop = prompt(species[i], "");
+            // populations[i] = parseInt(pop).prop();
+        const name = document.createTextNode(species[i]);
+        var input = document.createElement("input");
+        input.setAttribute('id', species[i]);
+        input.setAttribute('name', 'population');
+        input.setAttribute('type', 'number');
+        input.setAttribute('min', '1');
+        input.setAttribute('max', '100');
+        choices.appendChild(name);
+        var linebreak = document.createElement('br');
+        choices.appendChild(linebreak);
+        choices.appendChild(input);
+        var linebreak = document.createElement('br');
+        choices.appendChild(linebreak);
+
+
+    }
+    
+    //}
+    function submit(){
+        let species = JSON.parse(localStorage.getItem("Species"));
+        let chosenSpecies = document.getElementsByClassName('input'); //document.getElementById('ChosenSpecies');
+        var populations = [];
+        var toContinue = true;
+        var validNum = true;
+        // for(let i of chosenSpecies){
+        //     populations.append(i.value);
+        // }
+        for(var i=0; i<species.length; i++){
+            var population = document.getElementById(species[i]).value;
+            console.log(population);
+            var num = parseInt(population);
+            if(population == "" ){
+                toContinue = false;
+            }
+            if(num < 0 || num > 100){
+                validNum = false;
+            }
+            populations.push(population);
+            
+        }
+        localStorage.setItem("Populations", JSON.stringify(populations));
+        // console.log(populations.length);
+
+        if(toContinue && validNum){
+            window.location.href = 'game.html';
+        }
+        else if(toContinue == false && validNum){
+            alert("Sorry:( you need to enter population size for all species before continuing.");
+        }
+        else if(validNum == false && toContinue){
+            alert("Sorry:( Some populations are either too small or too big.");
+        }
+        else{
+            alert("Sorry:( you need to enter population size for all species before continuing. Some filled ones are not supported either.");
+        }
+
+    }
+
+    //getSpecies();
+</script>
+<button class="bt1" onClick="submit()">Continue</button>
+
+</body>
+</html>

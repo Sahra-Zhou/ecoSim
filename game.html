@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ecosystem Simulator</title>
+</head>
+<body>
+<style>
+    h1{
+        font-size: 30px;
+        text-align: center;
+    }
+    h2{
+        font-size: 26px;
+        text-align: left;
+    }
+    p {
+        font-size: 16px;
+        text-align: left;
+    }
+    button.back-button{
+        text-align: left;
+        font-size: 12px;
+        padding: 5px 5px;
+        color: #000000;
+        background-color: #ffffff;
+    }
+    button.back-button:hover{background-color: #afafaf}
+
+    button.bt1 {
+    display: inline-block;
+    padding: 15px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    white-space: normal;
+    word-wrap: break-word;
+    /* width: 250px;
+    height: 250px; */
+    }
+
+    button.bt1:hover {background-color: #3e8e41}
+
+    button.bt1:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    }
+</style>
+<form action="population.html" method="POST"><button class="back-button">Back</button></form>
+<h1>Ecosystem Simulator</h1>
+<p>You can change the population using your cursor: Clicking existing tiles to remove that population or empty ones to add. 
+    You can use keys to change the species to add. 
+    Moving cursor on one tile and its related information of that population will be displayed at right. 
+    Health indicates if the populations is in good condition. 
+    It will decrease as time pass but can be increased by eating. 
+    Death rate is impacted by the health value, meaning how likely a creature may die in that population. 
+    The game ends when all creatures die or you can terminate it by clicking the end to go back to the main page. 
+    If you don't want to wait, click "Quick End" to see how long the ecosystem last. 
+    However, if you choose to "quick end", you can no longer modify the populations.</p>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser-arcade-physics.min.js"></script>
+</head>
+<body>
+    <div id="ChosenSpecies"></div>
+    <div id="game-container"></div>
+    <script src="game.js"></script>
+</body>
+</html>

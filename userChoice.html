@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ecosystem Simulator</title>
+</head>
+<style>
+    button.back-button{
+        text-align: left;
+        font-size: 12px;
+        padding: 5px 5px;
+        color: #000000;
+        background-color: #ffffff;
+    }
+    button.back-button:hover{background-color: #afafaf}
+
+    button.bt1 {
+    display: inline-block;
+    padding: 15px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #61a3c7;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    white-space: normal;
+    word-wrap: break-word;
+    /* width: 250px;
+    height: 250px; */
+    }
+
+    button.bt1:hover {background-color: #25748c}
+
+    button.bt1:active {
+    background-color: #3e698e;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    }
+    button.btn-env {
+    background-color: #BAE02F; /* Green */
+    color: brown;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: none;
+  }
+  button.btn-env:focus {
+    background-color: #BAE02F; /* Green */
+    color: brown;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: 3px solid rgb(34, 34, 34);
+  }
+  /* button {
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;} */
+</style>
+<body>
+    <form action="setup.html" method="POST"><button class="back-button">Back</button></form>
+<h1>Choosing Environment and Species</h1>
+<p></p>
+<label for="environment">Choose one environment</label>
+<button class="btn-env" value="Plain" onclick="checked(this.value)">Plain: Abundant resources</button>
+<button class="btn-env" value="Island" onclick="checked(this.value)">Island: Limited resources</button>
+<br>
+<label for="environment">Choose up to four species</label>
+<br>
+<label for="accept">
+    <input type="checkbox" id="Wolf" name="accept" value="yes">  Wolf: Preys mainly on sheep but will eat birds if there's no sheep.  
+ </label>
+ <br>
+ <label for="accept">
+    <input type="checkbox" id="Sheep" name="accept" value="yes">  Sheep: Consumes moderate amount of resources. 
+ </label>
+ <br>
+ <label for="accept">
+    <input type="checkbox" id="Cat" name="accept" value="yes">  Cat: Preys on birds.
+ </label>
+ <br>
+ <label for="accept">
+    <input type="checkbox" id="Bird" name="accept" value="yes">  Bird: Consumes small amount of resources.
+ </label>
+ <br>
+<button class="bt1" onClick="submit()">Continue</button></form>
+<script>
+    var env = "";
+    function checked(value){
+        env = value;
+    }
+    function submit(){
+        var valid = true;
+        var species = [];
+        if(document.getElementById('Wolf').checked){
+            species.push("Wolf");
+        }
+        if(document.getElementById('Sheep').checked){
+            species.push("Sheep");
+        }
+        if(document.getElementById('Cat').checked){
+            species.push("Cat");
+        }
+        if(document.getElementById('Bird').checked){
+            species.push("Bird");
+        }
+        if(species.length > 4){
+            alert("Sorry:( the simulator can only support up to 4 species.");
+            valid = false;
+        }
+        if(env == ""){
+            alert("Sorry:( you haven't choose an environment.");
+            valid = false;
+        }
+        localStorage.setItem("Species", JSON.stringify(species));
+        localStorage.setItem("Environment", env);
+        if(valid){
+            window.location.href = "population.html";
+        }
+    }
+</script>
+
+
+</body>
+</html>

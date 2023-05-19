@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="index.js"></script>
+<title>Ecosystem Simulator</title>
+</head>
+<style>
+    body {text-align: center;}
+    h1{font-size: 40px;}
+    h2{font-size: 26px;}
+    p {
+        font-size: 22px;
+        text-align: left;
+    }
+    div {font-size: 20px;}
+    button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    }
+    button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #61a3c7;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    }
+
+    button:hover {background-color: #25748c}
+
+    button:active {
+    background-color: #3e698e;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    }
+    
+</style>
+<body>
+
+<h1>Ecosystem Simulator</h1>
+<p>Welcome to this tiny ecosystem simulator game! You can choose the environment and species to be placed in the ecosystem and set their populations. To begin, click the continue button below.</p>
+<h2>What can you do?</h2>
+<p>You can choose upto four species to place in an environment. Determining their population at the beginning and observe how their populations change. During the game, you can also add or remove species. The game ends once all creatures die.</p>
+<h2>How is this different from other predator-prey ecosystems?</h2>
+<p>First, in this simulator, your choices are not limited to one predator-prey pair in the ecosystem. 
+    You are free choose whatever species you'd like to place. 
+    However, there are some rules between different species and some species do not have evident impact on each other. 
+    For example, birds' populations have limited impact on sheep. 
+    Second, while many other similar models only give updates of populations once the game starts, 
+    in this simulator, you can dynamically intervene the ecosystem whenever you want until the game ends.</p>
+
+<form action="setup.html" method="POST"><button>Continue</button></form>
+</body>
+</html>
