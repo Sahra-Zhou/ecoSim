@@ -13,13 +13,13 @@
         text-align: left;
     }
     div {font-size: 20px;}
-    button span {
+    button.continue-button span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
     }
-    button {
+    button.continue-button {
     display: inline-block;
     padding: 15px 25px;
     font-size: 24px;
@@ -34,9 +34,9 @@
     box-shadow: 0 9px #999;
     }
 
-    button:hover {background-color: #25748c}
+    button.continue-button:hover {background-color: #25748c}
 
-    button:active {
+    button.continue-button:active {
     background-color: #3e698e;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
@@ -47,8 +47,11 @@
 
 <h1>Ecosystem Simulator</h1>
 <p>Welcome to this tiny ecosystem simulator game! You can choose the environment and species to be placed in the ecosystem and set their populations. To begin, click the continue button below.</p>
+<p>Your opinion means a lot to us! Please take the survey to share your thoughts about the game!</p><a href="https://forms.gle/fzCovynqmaLWU3dv9">survey</a>
 <h2>What can you do?</h2>
 <p>You can choose upto four species to place in an environment. Determining their population at the beginning and observe how their populations change. During the game, you can also add or remove species. The game ends once all creatures die.</p>
+<p>Click the button below to see the guide for play</p>
+<form action="guide.html" method="POST"><button>Guide</button></form>
 <h2>How is this different from other predator-prey ecosystems?</h2>
 <p>First, in this simulator, your choices are not limited to one predator-prey pair in the ecosystem. 
     You are free choose whatever species you'd like to place. 
@@ -56,7 +59,15 @@
     For example, birds' populations have limited impact on sheep. 
     Second, while many other similar models only give updates of populations once the game starts, 
     in this simulator, you can dynamically intervene the ecosystem whenever you want until the game ends.</p>
-
-<form action="setup.html" method="POST"><button>Continue</button></form>
+<h2>Purpose of This Game</h2>
+<p>
+    The main goal of this game is to allow people to experience the impact of human intervention. 
+    During the game, you can increasing or decreasing populations to see if your action will maintain the balance or crash the ecosystem.
+</p>
+<h2>Inspiration</h2>
+<p>There have been many examples of how human intervention has resulted in irreversible consequences. 
+    For example, street cats have become a great threats to local birds.
+    With this game, I hope players can experience how easily it is to break the balance in an ecosystem and how hard it is to repair it.</p>
+<form action="setup.html" method="POST"><button class="continue-button">Continue</button></form>
 </body>
 </html>

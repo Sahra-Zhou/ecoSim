@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ecosystem Simulator</title>
+</head>
+<body>
+<style>
+    h1{
+        font-size: 30px;
+        text-align: center;
+    }
+    h2{
+        font-size: 26px;
+        text-align: left;
+    }
+    p {
+        font-size: 16px;
+        text-align: left;
+    }
+    button.back-button{
+        text-align: left;
+        font-size: 12px;
+        padding: 5px 5px;
+        color: #000000;
+        background-color: #ffffff;
+    }
+    button.back-button:hover{background-color: #afafaf}
+
+    button.bt1 {
+    display: inline-block;
+    padding: 15px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    white-space: normal;
+    word-wrap: break-word;
+    /* width: 250px;
+    height: 250px; */
+    }
+
+    button.bt1:hover {background-color: #3e8e41}
+
+    button.bt1:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    }
+</style>
+<form action="game.html" method="POST"><button class="back-button">Back</button></form>
+<h1>Ecosystem Simulator</h1>
+<p>Population Graph</p>
+<head>
+    <script src="https://cdn.plot.ly/plotly-2.20.0.min.js" charset="utf-8"></script>
+</head>
+<div id="tester" style="width:600px;height:250px;"></div>
+<div id="resourcesGraph" style="width:600px;height:250px;"></div>
+<script>
+	TESTER = document.getElementById('tester');
+    var cntpop = JSON.parse(localStorage.getItem('countPopulation'));
+    var keys = Object.keys(cntpop);
+    var data = [];
+    const colors = ['rgb(219, 64, 82)', 'rgb(55, 128, 191)', 'rgb(128, 0, 128)', 'rgb(55, 28, 191)', 'rgb(155, 128, 191)'];
+    for(var i=0; i< keys.length-1; i++){
+        var trace = {
+            type: 'scatter',
+            x: cntpop['Day'],
+            y: cntpop[keys[i]],
+            mode: 'lines',
+            name: keys[i],
+            line: {
+            color: colors[i],
+            width: 3}
+        };
+        console.log(cntpop[keys[i]]);
+        data.push(trace);
+    }
+    var layout = {
+        width: 800,
+        height: 500
+    };
+
+	Plotly.newPlot( TESTER, data, layout);
+    var trace2 = {
+            type: 'scatter',
+            x: cntpop['Day'],
+            y: cntpop['Resources'],
+            mode: 'lines',
+            name: 'Resources',
+            line: {
+            color: 'rgb(155, 128, 191)',
+            width: 3}
+        };
+    var resGraph = document.getElementById('resourcesGraph');
+   //Plotly.newPlot(resGraph, trace2, layout);
+</script>
+</html>

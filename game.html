@@ -62,15 +62,20 @@
     It will decrease as time pass but can be increased by eating. 
     Death rate is impacted by the health value, meaning how likely a creature may die in that population. 
     The game ends when all creatures die or you can terminate it by clicking the end to go back to the main page. 
-    If you don't want to wait, click "Quick End" to see how long the ecosystem last. 
-    However, if you choose to "quick end", you can no longer modify the populations.</p>
+    If you don't want to wait, click "Skip" to see how long the ecosystem last. 
+    However, if you choose to skip, you can no longer modify the populations.</p>
+    <p>To see the graph of populations, click on the button at the bottom of the page.</p>
 
 <head>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser-arcade-physics.min.js"></script>
 </head>
 <body>
     <div id="ChosenSpecies"></div>
+    <p>Your opinion means a lot to us! Please take the survey to share your thoughts about the game!</p><a href="https://forms.gle/fzCovynqmaLWU3dv9">survey</a>
+    
     <div id="game-container"></div>
     <script src="game.js"></script>
-</body>
+    <form action="showGraph.html" method="POST"><button class="back-button">Population Graph</button></form>
+   </body>
+
 </html>

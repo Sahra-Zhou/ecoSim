@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ecosystem Simulator</title>
+</head>
+<body>
+<style>
+    h1{
+        font-size: 30px;
+        text-align: center;
+    }
+    h2{
+        font-size: 26px;
+        text-align: left;
+    }
+    p {
+        font-size: 16px;
+        text-align: left;
+    }
+    button.back-button{
+        text-align: left;
+        font-size: 12px;
+        padding: 5px 5px;
+        color: #000000;
+        background-color: #ffffff;
+    }
+    button.back-button:hover{background-color: #afafaf}
+
+    button.bt1 {
+    display: inline-block;
+    padding: 15px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    white-space: normal;
+    word-wrap: break-word;
+    /* width: 250px;
+    height: 250px; */
+    }
+
+    button.bt1:hover {background-color: #3e8e41}
+
+    button.bt1:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    }
+    button.continue-button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    }
+    button.continue-button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #61a3c7;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    }
+
+    button.continue-button:hover {background-color: #25748c}
+
+    button.continue-button:active {
+    background-color: #3e698e;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    }
+    
+</style>
+<form action="index.html" method="POST"><button class="back-button">Back</button></form>
+<h1>Ecosystem Simulator Guide</h1>
+<p>This is a simple guide to show you how the game works</p>
+<p>The following image is an example of what you may see in the game. This guide will walk through some elements in the game and show you how to make use of them.</p>
+<img src="assets/demo1.png" alt="DEMO" width="900" height="600" >
+<p>First, you can see some images of animals in the picture. This is the major part of the game, showing the populations. Each indicates a pack of creatures. Predators, such as wolves and cats, will move close to the preys and tend to hang around near them. Preys, in the contrary, tends to stay in a fixed location.</p>
+<p>On the right, you can see some values. The first one is "Day". Day is used to evaluate how long the ecosystem has last. 
+    The second one is available resources. Its initial value is determined by the environment you chose. It will be consumed by primary consumer. Its amount will be recovered over time. However, the amount of recovery is based on its current value. This means if all resources have been consumed, it will no longer be recovered.
+    Below the available resources are some values of the pack. Moving your cursor on an image, the corresponding information of it will be displayed in this area.
+    The first is the species of the pack you select. The health value indicates how healthy is the population which is impacted by their activities.
+    Next, you can see a death rate value. This also reflects the health of the population. It tells you how likely an individual may die in the near future. 
+    </p>
+<p>
+    Around the left-bottom of the image, you can see the instructions of adding more creatures. Pressing corresponding keys, you can change the species you wish to add. 
+    And when you click on an empty tile, a new pack will be added to the ecosystem. Similarly, clicking on a non-empty tile removes that pack.
+</p>
+<p>In the image below, key 1 is pressed, so the species to add is set to wolf. And an empty tile is selected.</p>
+<img src="assets/add-before.png" alt="DEMO" width="900" height="600" >
+<p>Clicked the empty tile and now a new wolf appears.</p>
+<img src="assets/add-after.png" alt="DEMO" width="900" height="600" >
+<p>Now the cursor selects a sheep tile.</p>
+<img src="assets/remove-before.png" alt="DEMO" width="900" height="600" >
+<p>Clicked that tile and that sheep disappears.</p>
+<p>
+    Around the right-bottom, you can see three buttons. The skip allows you to jump to the end of the game if you want to skip the wait. 
+    Clicking the pause button pauses the game and clicking it again to recover.
+    End button allows you to terminate the game and to go back to the main page.</p>
+
+<form action="setup.html" method="POST"><button class="continue-button">Continue</button></form>
+</html>

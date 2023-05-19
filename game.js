@@ -1,5 +1,4 @@
 
-
 let currentSpecies = JSON.parse(localStorage.getItem("Species"));
 let currentPopulation = JSON.parse(localStorage.getItem("Populations"));
 var day = 0;
@@ -14,8 +13,10 @@ var gameDay;
 var lastRep = 0;
 var ends = false;
 var map;
+var emptyStart = false;
+var countPop = {}
 const envResources = {
-    Plain: 10000,
+    Plain: 15000,
     Island: 2000,
 }
 for (const e of currentPopulation){
@@ -87,7 +88,7 @@ const speciesInfo = {
         minFood: 0.025,
         maxFood: 0.22,
         //sprite: ,
-        food: ['Sheep'],
+        food: ['Sheep', 'Bird'],
         repRate: 365,
         distance: 5,
         toPrey: 7,
@@ -181,27 +182,7 @@ function getRandomInt(min, max) {
 }
 var updateText;
 
-function findNearestFood(x, y, food){
-    var nearest = [-1, -1];
-    for(var i=0; i<tileWidth; i++){
-        for(var j=0; j<tileHeight; j++){
-            // console.log("find: "+food);
-            const s = getCreature(i, j);
-            if(isPrey(food, tiles[j][i]) && s.alive){
-                console.log("find: "+food);
-                if(nearest[0] == -1 && nearest[1]==-1){
-                    nearest[0]=i;
-                    nearest[1]=j;
-                }
-                else if(getDistance(x, y, nearest[0], nearest[1])>getDistance(x, y, i, j)){
-                    nearest[0]=i;
-                    nearest[1]=j;
-                }
-            }
-        }
-    }
-    return nearest;
-}
+
 function getDistance(x, y, x2, y2){
     return Math.abs(x-x2)+Math.abs(y-y2);
 }
@@ -357,6 +338,7 @@ function withinRange(x, y, prey, dis){
 function isPrey(preys, target){
     for(var i=0; i<preys.length; i++){
         if(target==speciesInfo[preys[i]]['id']){
+            console.log(preys[i]+" is prey");
             return true;
         }
     }
@@ -484,15 +466,21 @@ function packActivity2(pack, i){
     //find food
     if(pack.age % info.toPrey == 0){
         //need to get food
-        if(info['prey']==false && resources > 0){
+        if(info['prey']==false){
             //preys
-            pack.health -= 3;
-            resources = Math.max(0, resources-food);
-            pack.health = Math.min(100, pack.health+5);
+            pack.health = Math.max(0, pack.health-3);
+            if(resources > 0){
+                resources = Math.max(0, resources-food);
+                pack.health = Math.min(100, pack.health+5);
+            }
+            else{
+                pack.health = Math.max(0, pack.health-3);
+            }
+            
         }
         else if(info['prey']){
             //predators
-            pack.health -= 2;
+            pack.health = Math.max(0, pack.health-1);
             var target = tryToPrey2(pack.x, pack.y, info.food, info.distance, food);
             console.log(pack.species+" ate "+ target[1]+" preys");
             if(target[0] != food){
@@ -552,7 +540,7 @@ function packActivity2(pack, i){
 
         }
     }
-    pack.deathRate = healthToDeathRate(pack.health);
+    pack.deathRate = Math.max(1, Math.min(100, pack.deathRate - healthToDeathRate(pack.health)));
     //Math.max(1, Math.min(100, pack.deathRate+healthToDeathRate(pack.health)));
     //death
     if(pack.age % 7 == 0){
@@ -638,28 +626,48 @@ function dailyActivity2(){
     }
 }
 function healthToDeathRate(val){
-    if(val >= 70){
+    if(val >= 90){
+        return 5;
+    }
+    else if(val >= 80){
+        return 3;
+    }
+    else if(val >= 70){
         return 1;
     }
     else if(val >= 60){
-        return 2;
+        return -0.5;
     }
     else if(val >= 50){
-        return 5;
+        return -1;
     }
     else if(val >= 40){
-        return 10;
+        return -1.5;
     }
     else{
-        return 20;
+        return -2;
     }
 }
-
+function updatePopulation(){
+    var temp = {};
+    for(c of currentSpecies){
+        temp[c] = 0;
+    }
+    for(s of creatures){
+        temp[s.species] += s.population;
+    }
+    for(c of currentSpecies){
+        countPop[c].push(temp[c]);
+    }
+    countPop['Resources'].push(resources);
+    countPop['Day'].push(day);
+}
 //place resources id 0
 function init(){
     resources = envResources[gameSetting['Environment']];
     for(var i=0; i< currentSpecies.length; i++){
         const s = currentSpecies[i];
+        countPop[currentSpecies[i]] = [population[i]*speciesInfo[s]['packNum']];
         // console.log(s+population[i]);
         for(var j=0; j<population[i]; j++){
             //console.log("create "+s+" "+j);
@@ -667,6 +675,13 @@ function init(){
             addNewPacks2(s, speciesInfo[s]['packNum']);
         }
     }
+    countPop['Resources'] = [resources];
+    countPop['Day'] = [day];
+    if(creatures.length==0){
+        emptyStart = true;
+    }
+    localStorage.setItem('countPopulation', JSON.stringify(countPop));
+    localStorage.setItem('showGraph', JSON.stringify(false));
 }
 
 var config = {
@@ -795,7 +810,7 @@ function create ()
     init();
     //title = this.add.text(200, 16, 'Species Interactions', { fontSize: '32px', fill: '#000'});
     pause = this.add.text(600, 550, 'Pause', { fontSize: '32px', fill: '#000'}).setInteractive({useHandCursor: true}).on('pointerdown', pauseGame);
-    speedUp = this.add.text(350, 550, 'Quick End', { fontSize: '32px', fill: '#000'}).setInteractive({useHandCursor: true}).on('pointerdown', quickEndGame);
+    speedUp = this.add.text(350, 550, 'Skip', { fontSize: '32px', fill: '#000'}).setInteractive({useHandCursor: true}).on('pointerdown', quickEndGame);
     
     start = this.add.text(750, 550, 'End', { fontSize: '32px', fill: '#000'}).setInteractive({useHandCursor: true}).on('pointerdown', endGame);
     availableResources = this.add.text(650, 50, "Available resources: "+resources, { fontSize: '24px', align: "right", wordWrap: { width: 250, useAdvancedWrap: true}, fill: '#000'});
@@ -814,39 +829,38 @@ function create ()
 }
 function update(time, delta){
     const worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
-    // console.log("worldPoint: ");
-    // console.log(worldPoint);
-
+   
     const pointerTileX = map.worldToTileX(worldPoint.x);
     const pointerTileY = map.worldToTileY(worldPoint.y);
 
-    // console.log(pointerTileX);
-    // console.log(pointerTileY);
-    // console.log(marker);
-
+    
     marker.x = map.tileToWorldX(pointerTileX);
     marker.y = map.tileToWorldY(pointerTileY);
-    if(creatures.length==0){
+    if(creatures.length==0 && emptyStart == false){
         ends=true;
         endText = this.add.text(50, 200, 'All Creatures are dead:( Game Over', { fontSize: '32px', fill: '#000'}).setInteractive({useHandCursor: true}).on('pointerdown', endGame);
+        localStorage.setItem('countPopulation', JSON.stringify(countPop));
+        localStorage.setItem('showGraph', JSON.stringify(true));
     }
     if(time-timer > 100 && ends == false && isPause==false){
         day ++;
         //dayActivity();
         dailyActivity2();
+        updatePopulation();
+        localStorage.setItem('countPopulation', JSON.stringify(countPop));
         creatures = creatures.filter(function( obj ) {
             return obj.alive;
         });
-        console.log(creatures.length);
-        if(creatures.length==1 || day > 400){
-            console.log(creatures);
-        }
+        // console.log(creatures.length);
+        // if(creatures.length==1 || day > 400){
+        //     console.log(creatures);
+        // }
         timer = time;
     }
     availableResources.setText("Available resources: "+resources);
     gameDay.setText("Days: "+day);
     if(pointerTileY< tileHeight && pointerTileY >= 0 && pointerTileX >= 0 && pointerTileX<tileWidth){
-        console.log("pointer: "+pointerTileX+" "+pointerTileY);
+        // console.log("pointer: "+pointerTileX+" "+pointerTileY);
         const iscreature = getCreature(pointerTileX, pointerTileY);
         if(iscreature != null){
             currentCreature = iscreature;
@@ -877,12 +891,14 @@ function quickEndGame(){
         day ++;
         //dayActivity();
         dailyActivity2();
+        updatePopulation();
         creatures = creatures.filter(function( obj ) {
             return obj.alive;
         });
     }
     availableResources.setText("Available resources: "+resources);
     gameDay.setText("Days: "+day);
+    localStorage.setItem('countPopulation', JSON.stringify(countPop));
 }
 function endGame(){
     window.location.href = 'index.html';
