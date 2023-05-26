@@ -71,11 +71,11 @@
 </style>
 <body>
     <form action="setup.html" method="POST"><button class="back-button">Back</button></form>
-<h1>Choosing Environment and Species</h1>
+<h1>Choosing Species</h1>
 <p></p>
-<label for="environment">Choose one environment</label>
+<!-- <label for="environment">Choose one environment</label>
 <button class="btn-env" value="Plain" onclick="checked(this.value)">Plain: Abundant resources</button>
-<button class="btn-env" value="Island" onclick="checked(this.value)">Island: Limited resources</button>
+<button class="btn-env" value="Island" onclick="checked(this.value)">Island: Limited resources</button> -->
 <br>
 <label for="environment">Choose up to four species</label>
 <br>
@@ -84,7 +84,7 @@
  </label>
  <br>
  <label for="accept">
-    <input type="checkbox" id="Sheep" name="accept" value="yes">  Sheep: Consumes moderate amount of resources. 
+    <input type="checkbox" id="Sheep" name="accept" value="yes">  Sheep: Consumes large amount of resources. 
  </label>
  <br>
  <label for="accept">
@@ -120,12 +120,12 @@
             alert("Sorry:( the simulator can only support up to 4 species.");
             valid = false;
         }
-        if(env == ""){
-            alert("Sorry:( you haven't choose an environment.");
-            valid = false;
-        }
+        // if(env == ""){
+        //     alert("Sorry:( you haven't choose an environment.");
+        //     valid = false;
+        // }
         localStorage.setItem("Species", JSON.stringify(species));
-        localStorage.setItem("Environment", env);
+        //localStorage.setItem("Environment", env);
         if(valid){
             window.location.href = "population.html";
         }

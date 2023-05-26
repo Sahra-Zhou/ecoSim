@@ -27,7 +27,7 @@ var resources;
 for(var i=0; i<currentSpecies.length; i++){
     gameSetting[currentSpecies[i]] = parseInt(currentPopulation[i]);
 }
-gameSetting['Environment'] = localStorage.getItem('Environment');
+gameSetting['Environment'] = parseInt(localStorage.getItem('Environment'));
 // for (var i=0; i <currentSpecies.length; i++){
 //     const name = document.createTextNode(currentSpecies[i]);
 //     var input = document.createElement("input");
@@ -622,7 +622,7 @@ function dailyActivity2(){
         }
     }
     if(day%7 == 0){
-        resources = Math.min(envResources[gameSetting['Environment']], resources+Math.ceil(resources*0.5));
+        resources = Math.min(gameSetting['Environment'], resources+Math.ceil(resources*0.5));
     }
 }
 function healthToDeathRate(val){
@@ -664,7 +664,7 @@ function updatePopulation(){
 }
 //place resources id 0
 function init(){
-    resources = envResources[gameSetting['Environment']];
+    resources = gameSetting['Environment'];
     for(var i=0; i< currentSpecies.length; i++){
         const s = currentSpecies[i];
         countPop[currentSpecies[i]] = [population[i]*speciesInfo[s]['packNum']];
@@ -693,6 +693,9 @@ var config = {
     // },
     parent: 'game-container',
     backgroundColor: '#E2FCFD',
+    dom: {
+        createContainer: true
+    },
     //pixelArt: true,
     scene: {
         preload: preload,
@@ -811,7 +814,10 @@ function create ()
     //title = this.add.text(200, 16, 'Species Interactions', { fontSize: '32px', fill: '#000'});
     pause = this.add.text(600, 550, 'Pause', { fontSize: '32px', fill: '#000'}).setInteractive({useHandCursor: true}).on('pointerdown', pauseGame);
     speedUp = this.add.text(350, 550, 'Skip', { fontSize: '32px', fill: '#000'}).setInteractive({useHandCursor: true}).on('pointerdown', quickEndGame);
-    
+    // const text = this.add.text(450, 550, 'Days to skip', { color: 'black', fontSize: '20px '});
+
+    // const element = this.add.dom(450, 550).createFromCache('nameform');
+
     start = this.add.text(750, 550, 'End', { fontSize: '32px', fill: '#000'}).setInteractive({useHandCursor: true}).on('pointerdown', endGame);
     availableResources = this.add.text(650, 50, "Available resources: "+resources, { fontSize: '24px', align: "right", wordWrap: { width: 250, useAdvancedWrap: true}, fill: '#000'});
     gameDay = this.add.text(750, 20, "Days: "+day, { fontSize: '24px', align: "right", fill: '#000'});
@@ -821,6 +827,8 @@ function create ()
     console.log(map.getTileLayerNames());
     console.log(tiles);
     console.log("game: ");
+    endText = this.add.text(50, 200, "", { fontSize: '32px', fill: '#000', wordWrap: { width: 600, useAdvancedWrap: true}});
+        
 
     //updateText = this.add.text(50, 100, 'Game begin', { fontSize: '20px', fill: '#000'}).setInteractive({useHandCursor: true}).on('pointerdown', endGame);
     
@@ -838,7 +846,7 @@ function update(time, delta){
     marker.y = map.tileToWorldY(pointerTileY);
     if(creatures.length==0 && emptyStart == false){
         ends=true;
-        endText = this.add.text(50, 200, 'All Creatures are dead:( Game Over', { fontSize: '32px', fill: '#000'}).setInteractive({useHandCursor: true}).on('pointerdown', endGame);
+        endText.setText(`All Creatures are dead:( Your ecosystem lasted ${day} days.`);
         localStorage.setItem('countPopulation', JSON.stringify(countPop));
         localStorage.setItem('showGraph', JSON.stringify(true));
     }
@@ -899,6 +907,9 @@ function quickEndGame(){
     availableResources.setText("Available resources: "+resources);
     gameDay.setText("Days: "+day);
     localStorage.setItem('countPopulation', JSON.stringify(countPop));
+    if(creatures.length > 0){
+        endText.setText("Congratulation! Your ecosystem lasted over 5000 days!");
+    }
 }
 function endGame(){
     window.location.href = 'index.html';

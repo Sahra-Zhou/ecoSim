@@ -54,6 +54,7 @@
 </style>
 <form action="setup.html" method="POST"><button class="back-button">Back</button></form>
 </form><h1>Ecosystem Simulator</h1>
+<div id="chooseResources"></div>
 <h2>Determining the Population of Selected Species</h2>
 <p>Please enter an integer between 0 and 100 for each species. This impacts how long the ecosystem can survive. 
     Recommendations: provide around six times of preys of predators</p>
@@ -61,18 +62,46 @@
 <div id="ChosenSpecies"></div>
 <script>
     //function getSpecies(){
+    var chooseResources = document.getElementById('chooseResources');
+    var isUserChoice = localStorage.getItem('userChoice');
     var choices = document.getElementById('ChosenSpecies');
+    // console.log(isUserChoice);
+    if(isUserChoice == 'true')
+    {
+        const title1 = document.createElement("h2");
+        const node = document.createTextNode("Determining the Available Resources in the Ecosystem");
+        title1.append(node);
+        chooseResources.append(title1);
+        var linebreak = document.createElement('br');
+        chooseResources.appendChild(linebreak);
+        const para = document.createElement("p");
+        const content = document.createTextNode("Please enter an integer between 0 and 20000. Resources is consumed by creatures such as sheep and bird. Note: Resource will reproduce over time, but the amount is determined by its value when it reproduces. Thus, the fewer the resources left, the fewer it reproduced.");
+        para.append(content);
+        chooseResources.append(para);
+        var linebreak = document.createElement('br');
+        chooseResources.appendChild(linebreak);
+    const name1 = document.createTextNode('Resources');
+    var input = document.createElement("input");
+    input.setAttribute('id', 'AvailableResources');
+    input.setAttribute('name', 'resources');
+    input.setAttribute('type', 'number');
+    input.setAttribute('min', '0');
+    input.setAttribute('max', '20000');
+    chooseResources.appendChild(name1);
+    var linebreak = document.createElement('br');
+    chooseResources.appendChild(linebreak);
+    chooseResources.appendChild(input);
+    var linebreak = document.createElement('br');
+    chooseResources.appendChild(linebreak);}
     let species = JSON.parse(localStorage.getItem("Species"));
         // var populations = Array(species.length);
     for (var i=0; i <species.length; i++){
-            // var pop = prompt(species[i], "");
-            // populations[i] = parseInt(pop).prop();
         const name = document.createTextNode(species[i]);
-        var input = document.createElement("input");
+        input = document.createElement("input");
         input.setAttribute('id', species[i]);
         input.setAttribute('name', 'population');
         input.setAttribute('type', 'number');
-        input.setAttribute('min', '1');
+        input.setAttribute('min', '0');
         input.setAttribute('max', '100');
         choices.appendChild(name);
         var linebreak = document.createElement('br');
@@ -91,13 +120,18 @@
         var populations = [];
         var toContinue = true;
         var validNum = true;
-        // for(let i of chosenSpecies){
-        //     populations.append(i.value);
-        // }
+        var validResources = true;
+        var isUserChoice = localStorage.getItem('userChoice');
+        if(isUserChoice == 'true')
+        {var resourcesAmnt = document.getElementById('AvailableResources');
+        var num = parseInt(resourcesAmnt.value);
+        if(num < 0 || num > 20000){
+            validResources = false;
+        }
+        localStorage.setItem('Environment', num);}
         for(var i=0; i<species.length; i++){
-            var population = document.getElementById(species[i]).value;
-            console.log(population);
-            var num = parseInt(population);
+            population = document.getElementById(species[i]).value;
+            num = parseInt(population);
             if(population == "" ){
                 toContinue = false;
             }
@@ -110,14 +144,17 @@
         localStorage.setItem("Populations", JSON.stringify(populations));
         // console.log(populations.length);
 
-        if(toContinue && validNum){
+        if(toContinue && validNum && validResources){
             window.location.href = 'game.html';
         }
         else if(toContinue == false && validNum){
             alert("Sorry:( you need to enter population size for all species before continuing.");
         }
         else if(validNum == false && toContinue){
-            alert("Sorry:( Some populations are either too small or too big.");
+            alert("Sorry:( Please enter valid number for each species");
+        }
+        else if(validResources == false){
+            alert("Sorry:( Please enter valid number for resources");
         }
         else{
             alert("Sorry:( you need to enter population size for all species before continuing. Some filled ones are not supported either.");
