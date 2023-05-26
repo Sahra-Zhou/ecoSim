@@ -14,7 +14,7 @@
         text-align: left;
     }
     p {
-        font-size: 16px;
+        font-size: 18px;
         text-align: left;
     }
     button.back-button{
@@ -24,6 +24,12 @@
         color: #000000;
         background-color: #ffffff;
     }
+    img.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
     button.back-button:hover{background-color: #afafaf}
 
     button.bt1 {
@@ -88,32 +94,38 @@
 <h2>Setup the Ecosystem</h2>
 <p>Before entering the game, you need to go through several steps to build the ecosystem.</p>
 <h2>Setup Step 1</h2>
-<img src="assets/setup.png" alt="DEMO" width="900" height="600" >
+<img src="assets/setup.png" alt="DEMO"  class="center" width="900" height="400" >
 <p>The first step is to choose whether you want to start with a fixed combination or your own choice. </p>
 <p>
     The first two options choose the species and the amount of resources in the environment for you
     while the third one allows you to choose whatever species you like and decide the amount of resources in the ecosystem. 
 </p>
 <h2>Setup Step 2</h2>
-<img src="assets/chooseSpecies.png" alt="DEMO" width="900" height="600" >
+<img src="assets/chooseSpecies.png" alt="DEMO" class="center" width="900" height="400" >
 <p>If you chose the third option in the previous step, you need to complete this additional step: choosing the species to place in the ecosystem.
      </p>
 <h2>Setup Step 3</h2>
-<img src="assets/populations.png" alt="DEMO" width="900" height="600" >
+<img src="assets/populations.png" alt="DEMO" class="center" width="900" height="400" >
 <p>In this step, you need to enter the number of available resources and creatures.</p>
+<h2>Tips for determining population size</h2>
+<img src="assets/tips.png" alt="DEMO" class="center" width="900" height="400" >
+<p>Deciding the population's size could be hard. Thus, at the bottom of the page, some tips are provided. Clicking on the text for tips to be popped up. 
+    The tips are concluded by the author after running a certain number of tests. However, they are just for references, since the ecosystem is not always predictable.
+    Different combinations, greater population size and etc could impact the ratios to keep the balance.
+    Author decides to not reveal too many about this and leave it for the players to discover. (Have questions or advice? Take the survey to tell the author!)</p>
 <h2>Simulator</h2>
 <p>Ater all the setups, the following image is an example of what you will see in the actual game. And the rest of the guide will walk through some elements in the game and show you how to make use of them.</p>
-<img src="assets/general.png" alt="DEMO" width="900" height="600" >
+<img src="assets/general.png" alt="DEMO" class="center" width="900" height="600" >
 <h2>"The Map"</h2>
 <p>First, inside the red frame, you can see some images of animals in the picture. 
     This is the "map" of the ecosystem, showing the locations of creatures. 
     Each tile represents a pack of creatures. 
     During the game, predators, such as wolves and cats, will move close to the preys and tend to hang around near them. 
     Preys, in the contrary, tends to stay in a fixed location.</p>
-<img src="assets/main_info.png" alt="DEMO" width="900" height="600" >
+<img src="assets/main_info.png" alt="DEMO" class="center" width="900" height="600" >
 <h2>Information Panel</h2>
 <p>On the right, you can see some values.</p>
-<img src="assets/info1.png" alt="DEMO" width="900" height="600" >
+<img src="assets/info1.png" alt="DEMO" class="center" width="900" height="600" >
 <p>The first one is "Day". The game updates information about the ecosystem by days. It's used to determine whether creatures need to eat or able to reproduce. 
     It's also used to evaluate how good the ecosystem is. The longer it lasts, the better it is.</p> 
 <p>The second one is available resources. Its initial value is determined during the setup stage.
@@ -131,26 +143,25 @@
 </p>
 <h2>Adding creatures</h2>
 <p>In the image below, key 1 is pressed, so the species to add is set to wolf. And an empty tile is selected.</p>
-<img src="assets/add-before.png" alt="DEMO" width="900" height="600" >
+<img src="assets/add-before.png" alt="DEMO" class="center" width="900" height="600" >
 <p>Clicked the empty tile and now a new wolf appears.</p>
-<img src="assets/add-after.png" alt="DEMO" width="900" height="600" >
+<img src="assets/add-after.png" alt="DEMO" class="center" width="900" height="600" >
 <h2>Removing creatures</h2>
 <p>In the game, you can also manipulate populations by removing some existing creatures.</p>
 <p>Now, in the image below, the cursor selects a sheep tile to be removed.</p>
-<img src="assets/remove-before.png" alt="DEMO" width="900" height="600" >
+<img src="assets/remove-before.png" alt="DEMO" class="center" width="900" height="600" >
 <p>Clicked that tile and that sheep disappears.</p>
-<img src="assets/remove-after.png" alt="DEMO" width="900" height="600" >
+<img src="assets/remove-after.png" alt="DEMO" class="center" width="900" height="600" >
 <p>
     Around the right-bottom, you can see three buttons. The skip allows you to jump to the end of the game if you want to skip the wait. 
     Clicking the pause button pauses the game and clicking it again to recover.
     End button allows you to terminate the game and to go back to the main page.</p>
 <h2>Population Graph</h2>
-<img src="assets/population_info.png" alt="DEMO" width="900" height="600" >
-<p>Clicking on the population graph icon, it will redirect you to a new page where the populations are displayed in a graph. 
+<img src="assets/population_info.png" alt="DEMO" class="center" width="900" height="600" >
+<p>Clicking on the population graph icon, it will pop up a new window where the populations and resources are displayed in a graph. 
     You can click on it anytime during the game and 
-    the graph will reflect all the information from the start of the game till the time you click the button.
+    the graph will contain all the information from the start of the game till the time you click the button.
     The following image is an example of population graph.</p>
-<p>Note: Once you go back to the game from the graph, the game will restart, meaning you'll lose previous progress.</p>
-<img src="assets/population_graph.png" alt="DEMO" width="900" height="600" >
+<img src="assets/population_graph.png" alt="DEMO" class="center" width="900" height="600" >
 <form action="setup.html" method="POST"><button class="continue-button">Continue</button></form>
 </html>

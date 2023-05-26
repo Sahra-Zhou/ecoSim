@@ -52,6 +52,14 @@
     box-shadow: 0 5px #666;
     transform: translateY(4px);
     }
+    .form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
 </style>
 <form action="population.html" method="POST"><button class="back-button">Back</button></form>
 <h1>Ecosystem Simulator</h1>
@@ -75,7 +83,15 @@
     
     <div id="game-container"></div>
     <script src="game.js"></script>
-    <form action="showGraph.html" method="POST"><button class="back-button">Population Graph</button></form>
-   </body>
+    <!-- <form action="showGraph.html" method="POST"> -->
+    <button class="back-button" onclick="openForm()">Population Graph</button>
+    </body>
+      <script>
+        function openForm()
+        {
+            popupWindow = window.open('showGraph.html','popUpWindow','height=600,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
+        }
+        
+      </script>
 
 </html>

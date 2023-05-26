@@ -134,7 +134,7 @@ const speciesInfo = {
         repRate: 360,
         distance: 4,
         lifespan: 600,
-        toPrey: 3,
+        toPrey: 2,
         packNum: 9,
         packMax: 20,
         repNum: 0.6,
@@ -157,10 +157,10 @@ const speciesInfo = {
         distance: 2,
         toPrey: 1,
         lifespan: 600,
-        eatAmount: 1,
-        packNum: 150,
-        packMax: 300,
-        repNum: 1.5,
+        eatAmount: 0.1,
+        packNum: 75,
+        packMax: 150,
+        repNum: 0.7,
     },
 };
 

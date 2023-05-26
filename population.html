@@ -51,6 +51,63 @@
     box-shadow: 0 5px #666;
     transform: translateY(4px);
     }
+    div.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+    div.popup .popuptext {
+  visibility: hidden;
+  width: 500px;
+  background-color: #5f5f5f;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  white-space: pre-wrap;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+    div.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+    div.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+</style>
+</head>
+
 </style>
 <form action="setup.html" method="POST"><button class="back-button">Back</button></form>
 </form><h1>Ecosystem Simulator</h1>
@@ -165,6 +222,29 @@
     //getSpecies();
 </script>
 <button class="bt1" onClick="submit()">Continue</button>
-
+<br>
+<br>
+<body style="text-align:center">
+    <p>Not sure what number to enter? Here are some tip. 
+        Note: The ratios are just for references. The greater the population, the less predictable it is. And with combinations of three or more species, the ratio may vary as well.</p>
+    <div class="popup" onclick="myFunction()">Click here for some tips
+      <span class="popuptext" id="myPopup">
+        Tips for population number:
+        1. Around 5~6 flocks of sheep can feed 1 pack of wolf. 
+        2. 15000 resources, which is the default resources for plain (option 1), is sufficient to feed 40 flocks of sheep.
+        3. 3000 resources, which is the default resources for island (option 2), is sufficient to feed 50 flocks of birds.
+        4. Around 50 flocks of sheep can feed 1 pack of wolf.
+        5. Cats would slaughter all the birds.
+      </span>
+    </div>
+    
+    <script>
+    // When the user clicks on div, open the popup
+    function myFunction() {
+      var popup = document.getElementById("myPopup");
+      popup.classList.toggle("show");
+    }
+    </script>
+    
 </body>
 </html>
