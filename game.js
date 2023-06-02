@@ -141,7 +141,7 @@ const speciesInfo = {
         repLevel: 60,
         deathLevel: 20,
         health: 80,
-        repFood: 0.10, //amount of food per day (lbs) according to body weight
+        repFood: 0.1, //amount of food per day (lbs) according to body weight
         minFood: 0.025,
         maxFood: 0.22,
         //sprite: ,
@@ -150,9 +150,9 @@ const speciesInfo = {
         distance: 4,
         lifespan: 600,
         toPrey: 2,
-        packNum: 9,
-        packMax: 20,
-        repNum: 0.6,
+        packNum: 8,
+        packMax: 15,
+        repNum: 0.65,
     },
     Bird: {
         species: 'Bird',
@@ -175,9 +175,9 @@ const speciesInfo = {
         toPrey: 1,
         lifespan: 600,
         eatAmount: 0.1,
-        packNum: 75,
-        packMax: 150,
-        repNum: 0.7,
+        packNum: 25,
+        packMax: 60,
+        repNum: 0.5,
     },
     Fox: {
         species: 'Fox',
@@ -196,12 +196,12 @@ const speciesInfo = {
         //sprite: ,
         food: ['Bird'],
         repRate: 365,
-        distance: 5,
+        distance: 3,
         toPrey: 2,
         lifespan: 600,
         packNum: 2,
-        packMax: 6,
-        repNum: 0.75,
+        packMax: 10,
+        repNum: 0.55,
     },
 };
 
@@ -260,11 +260,11 @@ function dayActivity(){
                 if(target[0] != -1 && target[1] != -1){
                     s.health = Math.min(100, s.health+22);
                     removeCreatureAt(target[0], target[1]);
-                    moveTo(s.x, s.y, target[0], target[1], info.id);
+                    //moveTo(s.x, s.y, target[0], target[1], info.id);
                     //updateText.setText(s.species+" at "+s.x+", "+s.y+" eat "+info.food+" at "+target[0]+", "+target[1]);
                     console.log(s.species+" at "+s.x+", "+s.y+" eat "+info.food+" at "+target[0]+", "+target[1]);
-                    s.x = target[0];
-                    s.y = target[1];
+                    // s.x = target[0];
+                    // s.y = target[1];
                     s.toPrey = info['toPrey'];
                 }
                 else{
@@ -347,15 +347,15 @@ function getCreature(x, y){
 }
 function removeCreatureAt(x, y){
     tiles[y][x] = 0;
-    if(doSkip == false && map.hasTileAt(x, y)){
+    if(map.hasTileAt(x, y)){
         map.removeTileAt(x, y);
     }
-    else if(map.hasTileAt(x, y)==false){
+    else{
         console.log('no tile at'+x+' '+y);
     }
     for(var i=0; i<creatures.length; i++){
         if(creatures[i].x == x && creatures[i].y==y){
-            console.log(creatures[i].species+" died(removeCreatureAt");
+            console.log(creatures[i].species+" died");
             creatures[i].alive = false;
         }
     }
@@ -378,7 +378,6 @@ function withinRange(x, y, prey, dis){
 function isPrey(preys, target){
     for(var i=0; i<preys.length; i++){
         if(target==speciesInfo[preys[i]]['id']){
-            console.log(preys[i]+" is prey");
             return true;
         }
     }
@@ -387,7 +386,7 @@ function isPrey(preys, target){
 function moveTo(x1, y1, x2, y2, val){
     tiles[y2][x2] = val;
     var t1 = map.getTileAt(x1, y1);
-    if(doSkip == false && t1 != null){
+    if(t1 != null){
         map.putTileAt(t1, x2, y2);
         map.removeTileAt(x1, y1);
         //map.putTileAt(6, x2, y2);
@@ -519,6 +518,7 @@ function addNewPacks2(species, num, x=null, y=null){
 function packActivity2(pack, i){
     const info = speciesInfo[pack.species];
     var food = Math.ceil(pack.population * info.repFood);
+    console.log("Max food: "+food);
     pack.age ++;
     //find food
     if(pack.age % info.toPrey == 0){
@@ -538,11 +538,14 @@ function packActivity2(pack, i){
         }
         if(info['carnivore']){
             //predators
+            console.log("food after resources: "+food);
             pack.health = Math.max(0, pack.health-1);
             var target = tryToPrey2(pack.x, pack.y, info.food, info.distance, food);
-            console.log(pack.species+" ate "+ target[1]+" preys");
+            console.log("Food after prey: "+target[0]);
             if(target[0] != food){
                 //found something to eat
+                console.log("Found something to eat");
+                console.log(pack.species+" ate "+ target[1]+" preys");
                 pack.health = Math.min(100, s.health+25*((food-target[0])/food));
                 const newloc = findEmptySpaceAround(target[2][0], target[2][1]);
                 if(newloc[0] != -1 && newloc[1] != -1){
@@ -553,31 +556,30 @@ function packActivity2(pack, i){
                 //updateText.setText(s.species+" at "+s.x+", "+s.y+" eat "+info.food+" at "+target[0]+", "+target[1]);
                 console.log(pack.species+" at "+pack.x+", "+pack.y+" eat "+info.food+" at "+target[0]+", "+target[1]);
             }
-            else {
+            else if (food != 0){
                 //no food within range
-                pack.health = Math.min(100, s.health-target[1]);
+                console.log("No food within range");
+                pack.health = Math.min(100, pack.health-target[1]);
                 var nearest = findNearestFood(pack.x, pack.y, info.food);
                 if(nearest[0] != -1 && nearest[1] != -1){
                     var newX;
                     var newY;
-                    if(nearest[0] < s.x){
-                        newX = Math.max(0, s.x - info.distance);
+                    if(nearest[0] < pack.x){
+                        newX = Math.max(0, pack.x - info.distance);
                     }
                     else{
-                        newX = Math.min(s.x+info.distance, tileWidth-1);
+                        newX = Math.min(pack.x+info.distance, tileWidth-1);
                     }
-                    if(nearest[1] < s.y){
-                        newY = Math.max(0, s.y - info.distance);
+                    if(nearest[1] < pack.y){
+                        newY = Math.max(0, pack.y - info.distance);
                     }
                     else{
-                        newY = Math.min(s.y+info.distance, tileHeight-1);
+                        newY = Math.min(pack.y+info.distance, tileHeight-1);
                     }
-                    const newloc = findEmptySpaceAround(newX, newY);
-                    if(newloc[0] != -1 && newloc[1] != -1){
-                        moveTo(pack.x, pack.y, newloc[0], newloc[1], info.id);
-                        pack.x = newloc[0];
-                        pack.y = newloc[1];
-                    }
+                
+                    moveTo(pack.x, pack.y, newX, newY, info.id);
+                    pack.x = newX;
+                    pack.y = newY;
 
                 }
             }
@@ -599,7 +601,6 @@ function packActivity2(pack, i){
         }
     }
     pack.deathRate = Math.max(1, Math.min(100, pack.deathRate - healthToDeathRate(pack.health)));
-    //Math.max(1, Math.min(100, pack.deathRate+healthToDeathRate(pack.health)));
     //death
     if(pack.age % 7 == 0){
         var death = 0;
@@ -655,7 +656,6 @@ function findNearestFood(x, y, food){
             // console.log("find: "+food);
             const s = getCreature(i, j);
             if(isPrey(food, tiles[j][i]) && s.alive){
-                console.log("find: "+food);
                 if(nearest[0] == -1 && nearest[1]==-1){
                     nearest[0]=i;
                     nearest[1]=j;
@@ -783,8 +783,8 @@ function preload ()
     // this.load.image('bird', 'assets/bird.png');
     // this.load.image('grass', 'assets/grass1.png');
     // this.load.image('ground', 'assets/ground.png');
-    this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
-    //this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
+    //this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
+    this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
     
 }
 
