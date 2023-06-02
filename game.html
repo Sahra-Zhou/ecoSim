@@ -61,7 +61,7 @@
   z-index: 9;
 }
 </style>
-<form action="population.html" method="POST"><button class="back-button">Back</button></form>
+<button class="back-button" onclick="goBack()">Back</button>
 <h1>Ecosystem Simulator</h1>
 <p>You can change the population using your cursor: Clicking existing tiles to remove that population or empty ones to add. 
     You can use keys to change the species to add. 
@@ -87,6 +87,9 @@
     <button class="back-button" onclick="openForm()">Population Graph</button>
     </body>
       <script>
+        function goBack(){
+            window.location.href = 'index.html';     
+        }
         function openForm()
         {
             popupWindow = window.open('showGraph.html','popUpWindow','height=600,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
