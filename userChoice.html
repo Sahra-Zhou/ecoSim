@@ -70,7 +70,7 @@
     font-size: 16px;} */
 </style>
 <body>
-    <form action="https://ecosimulator.netlify.app/setup.html" method="POST"><button class="back-button">Back</button></form>
+    <form action="setup.html" method="POST"><button class="back-button">Back</button></form>
 <h1>Choosing Species</h1>
 <p></p>
 <!-- <label for="environment">Choose one environment</label>
@@ -127,7 +127,7 @@
         localStorage.setItem("Species", JSON.stringify(species));
         //localStorage.setItem("Environment", env);
         if(valid){
-            window.location.href = "https://ecosimulator.netlify.app/population.html";
+            window.location.href = "population.html";
         }
     }
 </script>
