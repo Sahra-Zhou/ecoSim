@@ -783,8 +783,8 @@ function preload ()
     // this.load.image('bird', 'assets/bird.png');
     // this.load.image('grass', 'assets/grass1.png');
     // this.load.image('ground', 'assets/ground.png');
-    //this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
-    this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
+    this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
+    //this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
     
 }
 
