@@ -70,7 +70,7 @@
     font-size: 16px;} */
 </style>
 <body>
-    <form action="setup.html" method="POST"><button class="back-button">Back</button></form>
+    <button class="back-button" onclick="toSetup()">Back</button>
 <h1>Choosing Species</h1>
 <p></p>
 <!-- <label for="environment">Choose one environment</label>
@@ -80,7 +80,7 @@
 <label for="environment">Choose up to four species</label>
 <br>
 <label for="accept">
-    <input type="checkbox" id="Wolf" name="accept" value="yes">  Wolf: Preys mainly on sheep but will eat birds if there's no sheep.  
+    <input type="checkbox" id="Wolf" name="accept" value="yes">  Wolf: Preys mainly on sheep but will eat birds if sheep is not available.  
  </label>
  <br>
  <label for="accept">
@@ -127,7 +127,7 @@
         localStorage.setItem("Species", JSON.stringify(species));
         //localStorage.setItem("Environment", env);
         if(valid){
-            window.location.href = "population.html";
+            window.location.href = 'population.html';
         }
     }
 </script>

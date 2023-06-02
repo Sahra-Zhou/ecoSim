@@ -721,13 +721,13 @@ function preload ()
 {
     this.load.setBaseURL('http://labs.phaser.io');
 
-    this.load.image('wolf', 'http://localhost:8888/assets/wolf1.png');
-    this.load.image('sheep', 'http://localhost:8888/assets/sheep.jpg');
-    this.load.image('cat', 'http://localhost:8888/assets/cat.jpeg');
-    this.load.image('bird', 'http://localhost:8888/assets/bird.png');
-    this.load.image('grass', 'http://localhost:8888/assets/grass1.png');
-    this.load.image('ground', 'http://localhost:8888/assets/ground.png');
-    this.load.image('tile', 'http://localhost:8888/assets/combine_images.jpg');
+    this.load.image('wolf', 'assets/wolf1.png');
+    this.load.image('sheep', 'assets/sheep.jpg');
+    this.load.image('cat', 'assets/cat.jpeg');
+    this.load.image('bird', 'assets/bird.png');
+    this.load.image('grass', 'assets/grass1.png');
+    this.load.image('ground', 'assets/ground.png');
+    this.load.image('tile', 'assets/combine_images.jpg');
     
 }
 

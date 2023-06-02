@@ -51,10 +51,10 @@
 <p>Welcome to this tiny ecosystem simulator game! You can choose the environment and species to be placed in the ecosystem and set their populations. 
     Click the continue button below to begin the game.</p>
 <p>If you're new to this simulator, viewing the guide before starts is highly recommended.</p>
-<form action="guide.html" method="POST"><button >Guide</button></form>
+<button onclick="toGuide()">Guide</button>
 <br>
-<form action="setup.html" method="POST"><button class="continue-button">Continue</button></form>
-<p>Your opinion means a lot to us! Please take the survey to share your thoughts about the game!</p><a href="https://forms.gle/fzCovynqmaLWU3dv9">survey</a>
+<button class="continue-button" onclick="toSetup()">Continue</button>
+<p>Your opinion means a lot to us! Please take the survey to share your thoughts about the game!</p><a href="https://forms.gle/fzCovynqmaLWU3dv9" target="_blank">survey</a>
 <h1>About this simulator</h1>
 <h2>What can you do?</h2>
 <p>You can choose upto four species to place in an environment. Determining their population at the beginning and observe how their populations change. During the game, you can also add or remove species. The game ends once all creatures die.</p>
@@ -76,4 +76,6 @@
     For example, street cats have become a great threats to local birds.
     With this game, I hope players can experience how easily it is to break the balance in an ecosystem and how hard it is to repair it.</p>
 </body>
+<script src="redirect.js">  
+</script>
 </html>
