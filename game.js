@@ -14,7 +14,8 @@ var lastRep = 0;
 var ends = false;
 var map;
 var emptyStart = false;
-var countPop = {}
+var countPop = {};
+var doSkip = false;
 const envResources = {
     Plain: 15000,
     Island: 2000,
@@ -189,7 +190,7 @@ const speciesInfo = {
         health: 80,
         repLevel: 60,
         deathLevel: 20,
-        repFood: 0.1, //amount of food per day (lbs) according to body weight
+        repFood: 0.15, //amount of food per day (lbs) according to body weight
         minFood: 0.025,
         maxFood: 0.22,
         //sprite: ,
@@ -346,16 +347,15 @@ function getCreature(x, y){
 }
 function removeCreatureAt(x, y){
     tiles[y][x] = 0;
-    if(map.hasTileAt(x, y)){
+    if(doSkip == false && map.hasTileAt(x, y)){
         map.removeTileAt(x, y);
     }
-    else{
+    else if(map.hasTileAt(x, y)==false){
         console.log('no tile at'+x+' '+y);
     }
     for(var i=0; i<creatures.length; i++){
         if(creatures[i].x == x && creatures[i].y==y){
-            //creatures.splice(i, 1);
-            //console.log(creatures[i].species+" died(removeCreatureAt");
+            console.log(creatures[i].species+" died(removeCreatureAt");
             creatures[i].alive = false;
         }
     }
@@ -387,7 +387,7 @@ function isPrey(preys, target){
 function moveTo(x1, y1, x2, y2, val){
     tiles[y2][x2] = val;
     var t1 = map.getTileAt(x1, y1);
-    if(t1 != null){
+    if(doSkip == false && t1 != null){
         map.putTileAt(t1, x2, y2);
         map.removeTileAt(x1, y1);
         //map.putTileAt(6, x2, y2);
@@ -437,22 +437,37 @@ function createNewCreature(species){
         case 'Wolf':
             creatures.push(newCreatures['Wolf']);
             tiles[y][x] = 1;
-            map.putTileAt(1, x, y);
+            if(doSkip==false){
+                map.putTileAt(1, x, y);
+            }
             break;
         case 'Sheep':
             creatures.push(newCreatures['Sheep']);
             tiles[y][x] = 2;
-            map.putTileAt(2, x, y);
+            if(doSkip==false){
+                map.putTileAt(2, x, y);
+            }
             break;
         case 'Bird':
             creatures.push(newCreatures['Bird']);
             tiles[y][x] = 4;
-            map.putTileAt(4, x, y);
+            if(doSkip==false){
+                map.putTileAt(4, x, y);
+            }
             break;
         case 'Cat':
             creatures.push(newCreatures['Cat']);
             tiles[y][x] = 3;
-            map.putTileAt(3, x, y);
+            if(doSkip==false){
+                map.putTileAt(3, x, y);
+            }
+            break;
+        case 'Fox':
+            creatures.push(newCreatures['Fox']);
+            tiles[y][x] = 5;
+            if(doSkip==false){
+                map.putTileAt(5, x, y);
+            }
             break;
     }
 }
@@ -494,7 +509,9 @@ function addNewPacks2(species, num, x=null, y=null){
         }
         creatures.push(pack);
         tiles[y][x] = info.id;
-        map.putTileAt(info.id, x, y);
+        if(doSkip==false){
+            map.putTileAt(info.id, x, y);
+        }
         console.log('add '+species+' at '+x+' '+y);
     }
 }
@@ -711,8 +728,6 @@ function init(){
         countPop[currentSpecies[i]] = [population[i]*speciesInfo[s]['packNum']];
         // console.log(s+population[i]);
         for(var j=0; j<population[i]; j++){
-            //console.log("create "+s+" "+j);
-            //createNewCreature(s);
             addNewPacks2(s, speciesInfo[s]['packNum']);
         }
     }
@@ -935,8 +950,17 @@ function userAddCreatures2(species, pointerTileX, pointerTileY){
         addNewPacks2(species, speciesInfo[species]['packNum'],pointerTileX, pointerTileY);
     }
 }
+function fillMapAfterSkip(){
+    for(s of creatures){
+        if(map.hasTileAt(s.x, s.y)== false){
+            const info = speciesInfo[s.species];
+            map.putTileAt(info.id, s.x, s.y);
+        }
+    }
+}
 function quickEndGame(){
     isPause = true;
+    doSkip = true;
     while(creatures.length>0 && day<5000){
         day ++;
         //dayActivity();
@@ -945,6 +969,7 @@ function quickEndGame(){
             return obj.alive;
         });
     }
+    fillMapAfterSkip();
     updatePopulation();
     availableResources.setText("Available resources: "+resources);
     gameDay.setText("Days: "+day);
