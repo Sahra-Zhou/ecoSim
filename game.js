@@ -73,11 +73,21 @@ const newCreatures = {
         toPrey: 1,
         age: 0,
     },
+    Fox: {
+        species: 'Fox',
+        health: 80,
+        alive: true,
+        toPrey: 1,
+        toRep: 0,
+        age: 0,
+    },
 };
 const speciesInfo = {
     Wolf: {
         species: 'Wolf',
         prey: true,
+        carnivore: true,
+        herbivore: false,
         id: 1,
         preyRate: 1000,
         repNum: 1,
@@ -101,6 +111,8 @@ const speciesInfo = {
         species: 'Sheep',
         repNum: 1,
         prey: false,
+        carnivore: false,
+        herbivore: true,
         id: 2,
         repLevel: 50,
         deathLevel: 20,
@@ -122,6 +134,8 @@ const speciesInfo = {
         species: 'Cat',
         id: 3,
         prey: true,
+        carnivore: true,
+        herbivore: false,
         repNum: 2,
         repLevel: 60,
         deathLevel: 20,
@@ -144,6 +158,8 @@ const speciesInfo = {
         id: 4,
         repNum: 5,
         prey: false,
+        carnivore: false,
+        herbivore: true,
         repLevel: 50,
         deathLevel: 20,
         food: 'Resources',
@@ -161,6 +177,30 @@ const speciesInfo = {
         packNum: 75,
         packMax: 150,
         repNum: 0.7,
+    },
+    Fox: {
+        species: 'Fox',
+        prey: true,
+        carnivore: true,
+        herbivore: true,
+        id: 5,
+        preyRate: 1000,
+        repNum: 1,
+        health: 80,
+        repLevel: 60,
+        deathLevel: 20,
+        repFood: 0.1, //amount of food per day (lbs) according to body weight
+        minFood: 0.025,
+        maxFood: 0.22,
+        //sprite: ,
+        food: ['Bird'],
+        repRate: 365,
+        distance: 5,
+        toPrey: 2,
+        lifespan: 600,
+        packNum: 2,
+        packMax: 6,
+        repNum: 0.75,
     },
 };
 
@@ -461,24 +501,25 @@ function addNewPacks2(species, num, x=null, y=null){
 
 function packActivity2(pack, i){
     const info = speciesInfo[pack.species];
-    const food = Math.ceil(pack.population * info.repFood);
+    var food = Math.ceil(pack.population * info.repFood);
     pack.age ++;
     //find food
     if(pack.age % info.toPrey == 0){
         //need to get food
-        if(info['prey']==false){
+        if(info['herbivore']==true){
             //preys
             pack.health = Math.max(0, pack.health-3);
             if(resources > 0){
                 resources = Math.max(0, resources-food);
                 pack.health = Math.min(100, pack.health+5);
+                food = Math.floor(food * 0.1);
             }
             else{
                 pack.health = Math.max(0, pack.health-3);
             }
             
         }
-        else if(info['prey']){
+        if(info['carnivore']){
             //predators
             pack.health = Math.max(0, pack.health-1);
             var target = tryToPrey2(pack.x, pack.y, info.food, info.distance, food);
@@ -727,7 +768,8 @@ function preload ()
     // this.load.image('bird', 'assets/bird.png');
     // this.load.image('grass', 'assets/grass1.png');
     // this.load.image('ground', 'assets/ground.png');
-    this.load.image('tile', "https://ecosimulator.netlify.app/combine_images.jpg");
+    //this.load.image('tile', "https://ecosimulator.netlify.app/combine_images.jpg");
+    this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
     
 }
 
