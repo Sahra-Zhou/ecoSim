@@ -109,7 +109,7 @@
 </head>
 
 </style>
-<form action="setup.html" method="POST"><button class="back-button">Back</button></form>
+<form action="https://ecosimulator.netlify.app/setup.html" method="POST"><button class="back-button">Back</button></form>
 </form><h1>Ecosystem Simulator</h1>
 <div id="chooseResources"></div>
 <h2>Determining the Population of Selected Species</h2>
@@ -202,7 +202,7 @@
         // console.log(populations.length);
 
         if(toContinue && validNum && validResources){
-            window.location.href = 'game.html';
+            window.location.href = 'https://ecosimulator.netlify.app/game.html';
         }
         else if(toContinue == false && validNum){
             alert("Sorry:( you need to enter population size for all species before continuing.");
