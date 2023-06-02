@@ -512,7 +512,7 @@ function packActivity2(pack, i){
             if(resources > 0){
                 resources = Math.max(0, resources-food);
                 pack.health = Math.min(100, pack.health+5);
-                food = Math.floor(food * 0.1);
+                food = Math.floor(food * 0.4);
             }
             else{
                 pack.health = Math.max(0, pack.health-3);
@@ -768,8 +768,8 @@ function preload ()
     // this.load.image('bird', 'assets/bird.png');
     // this.load.image('grass', 'assets/grass1.png');
     // this.load.image('ground', 'assets/ground.png');
-    this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
-    //this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
+    //this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
+    this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
     
 }
 
@@ -941,11 +941,11 @@ function quickEndGame(){
         day ++;
         //dayActivity();
         dailyActivity2();
-        updatePopulation();
         creatures = creatures.filter(function( obj ) {
             return obj.alive;
         });
     }
+    updatePopulation();
     availableResources.setText("Available resources: "+resources);
     gameDay.setText("Days: "+day);
     localStorage.setItem('countPopulation', JSON.stringify(countPop));
