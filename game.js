@@ -669,8 +669,8 @@ function preload ()
     this.load.setBaseURL('http://labs.phaser.io');
 
     // load image
-    //this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
-    this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
+    this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
+    //this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
     
 }
 
