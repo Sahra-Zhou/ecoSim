@@ -1,30 +1,263 @@
-body {text-align: center;}
-h1{font-size: 40px;}
-h2{font-size: 26px;}
-p {font-size: 22px;}
-button {
+body {
+    /* text-align: center; */
+    width: 80%;
+    /* margin-left: 10%;
+    margin-right: 10%; */
+    background-color: rgb(85, 141, 160);
+}
+
+div {
+    font-size: 20px;
+}
+
+div.topnav {
+    overflow: hidden;
+    background-color: #0f4f6f;
+}
+  
+div.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+  
+div.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+  
+div.topnav a.active {
+    background-color: #40bce9;
+    color: white;
+}
+
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #0f4f6f;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Style the sidenav links and the dropdown button */
+  .sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fcfcfc;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  /* On mouse-over */
+  .sidenav a:hover, .dropdown-btn:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Main content */
+  .main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  
+  /* Add an active class to the active dropdown button */
+  .active {
+    background-color: #328aa0;
+    color: white;
+  }
+  
+  /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+  .dropdown-container {
+    display: none;
+    background-color: #439bb1;
+    padding-left: 8px;
+  }
+  
+  /* Optional: Style the caret down icon */
+  .fa-caret-down {
+    float: right;
+    padding-right: 8px;
+  }
+  
+  /* Some media queries for responsiveness */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+div.popup {
+    position: relative;
+    font-size: 18px;
+    color:rgb(239, 248, 58);
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+div.popup .popuptext {
+    visibility: hidden;
+    width: 550px;
+    background-color: #b1e7f6;
+    border: 3px solid #198ed8;
+    color: #0a0a0a;
+    text-align: left;
+    border-radius: 6px;
+    padding: 15px;
+    position: absolute;
+    z-index: 1;
+    white-space: pre-wrap;
+    left: 50%;
+    right: 50%;
+    text-indent: 0%;
+    /* margin-left: -80px; */
+}
+div.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+  
+h1{
+    font-size: 40px;
+    text-align: center;
+    color:rgb(255, 255, 255);
+    line-height: 1.25;
+}
+
+h2{
+    font-size: 26px;
+    text-align: center;
+    color:rgb(255, 255, 255);
+    line-height: 1.25;
+}
+
+p {
+    font-size: 22px;
+    text-align: left;
+    text-indent: 50px;
+    text-align: justify;
+    margin-left: 25px;
+    color:rgb(255, 255, 255);
+    line-height: 1.25;
+}
+p.tip {
+    color:rgb(239, 248, 58);
+    font-size: 20px;
+}
+
+input{
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+/*
+    Image style
+*/
+img.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    border: 5px solid #a0dee7;
+}
+/*
+    Back button style
+*/
+button.back-button{
+    text-align: left;
+    font-size: 12px;
+    padding: 5px 5px;
+    color: #000000;
+    background-color: #ffffff;
+}
+button.back-button:hover{
+    background-color: #afafaf;
+}
+
+/*
+    Other button style
+*/
+button.bt1 {
     display: inline-block;
     padding: 15px 15px;
     font-size: 18px;
     cursor: pointer;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
     outline: none;
     color: #fff;
-    background-color: #4CAF50;
+    background-color: #469dc9;
     border: none;
     border-radius: 15px;
-    box-shadow: 0 9px #999;
     white-space: normal;
     word-wrap: break-word;
     /* width: 250px;
-    height: 250px; */
-    }
+    height: 250px;
+    box-shadow: 0 9px #999; */
+}
 
-button:hover {background-color: #3e8e41}
+button.bt1:hover {background-color: #0f6faf}
 
-    button:active {
-    background-color: #3e8e41;
-    box-shadow: 0 5px #666;
+button.bt1:active {
+    background-color: #0f6faf;
+    /* box-shadow: 0 5px #666; */
     transform: translateY(4px);
-    }
+}
+
+/*
+    Continue button style
+*/
+
+button.continue-button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+button.continue-button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #223d4c;
+    background-color: #c8ef89;
+    border: none;
+    border-radius: 15px;
+}
+
+button.continue-button:hover {
+    background-color: #428f29;
+}
+
+button.continue-button:active {
+    background-color: #428f29;
+    transform: translateY(4px);
+}

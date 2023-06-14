@@ -4,92 +4,16 @@
 <title>Ecosystem Simulator</title>
 </head>
 <body>
-<style>
-    h1{
-        font-size: 30px;
-        text-align: center;
-    }
-    h2{
-        font-size: 26px;
-        text-align: left;
-    }
-    p {
-        font-size: 18px;
-        text-align: left;
-    }
-    button.back-button{
-        text-align: left;
-        font-size: 12px;
-        padding: 5px 5px;
-        color: #000000;
-        background-color: #ffffff;
-    }
-    img.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-    button.back-button:hover{background-color: #afafaf}
+    <link rel="stylesheet" href="webStyle.css">
+    <div class="topnav">
+        <a href="index.html">Home</a>
+        <a class="active" href="guide.html">Guide</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
 
-    button.bt1 {
-    display: inline-block;
-    padding: 15px 15px;
-    font-size: 18px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-    white-space: normal;
-    word-wrap: break-word;
-    /* width: 250px;
-    height: 250px; */
-    }
-
-    button.bt1:hover {background-color: #3e8e41}
-
-    button.bt1:active {
-    background-color: #3e8e41;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-    }
-    button.continue-button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-    }
-    button.continue-button {
-    display: inline-block;
-    padding: 15px 25px;
-    font-size: 24px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #61a3c7;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-    }
-
-    button.continue-button:hover {background-color: #25748c}
-
-    button.continue-button:active {
-    background-color: #3e698e;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-    }
-    
-</style>
-<button class="back-button" onclick="goBack()">Back</button>
-<h1>Ecosystem Simulator Guide</h1>
+<div id="setup"><a id="setup">
+    <h1>Ecosystem Simulator Guide</h1>
 <p>This is a simple guide to show you how the game works</p>
 <h2>Setup the Ecosystem</h2>
 <p>Before entering the game, you need to go through several steps to build the ecosystem.</p>
@@ -113,9 +37,14 @@
     The tips are concluded by the author after running a certain number of tests. However, they are just for references, since the ecosystem is not always predictable.
     Different combinations, greater population size and etc could impact the ratios to keep the balance.
     Author decides to not reveal too many about this and leave it for the players to discover. (Have questions or advice? Take the survey to tell the author!)</p>
-<h2>Simulator</h2>
+
+</a></div>
+<div id="simulator"><a id="simulator">
+    <h2>Simulator</h2>
 <p>Ater all the setups, the following image is an example of what you will see in the actual game. And the rest of the guide will walk through some elements in the game and show you how to make use of them.</p>
 <img src="assets/general.png" alt="DEMO" class="center" width="900" height="600" >
+</a></div>
+<div id="map"><a id="map">
 <h2>"The Map"</h2>
 <p>First, inside the red frame, you can see some images of animals in the picture. 
     This is the "map" of the ecosystem, showing the locations of creatures. 
@@ -123,6 +52,9 @@
     During the game, predators, such as wolves and cats, will move close to the preys and tend to hang around near them. 
     Preys, in the contrary, tends to stay in a fixed location.</p>
 <img src="assets/main_info.png" alt="DEMO" class="center" width="900" height="600" >
+</a></div>
+
+<div id="information"><a id="information">
 <h2>Information Panel</h2>
 <p>On the right, you can see some values.</p>
 <img src="assets/info1.png" alt="DEMO" class="center" width="900" height="600" >
@@ -141,11 +73,17 @@
     Around the left-bottom of the image, you can see the instructions of adding more creatures. Pressing corresponding keys, you can change the species you wish to add. 
     And when you click on an empty tile, a new pack will be added to the ecosystem. Similarly, clicking on a non-empty tile removes that pack.
 </p>
+</a></div>
+
+<div id="add"><a id="add">
 <h2>Adding creatures</h2>
 <p>In the image below, key 1 is pressed, so the species to add is set to wolf. And an empty tile is selected.</p>
 <img src="assets/add-before.png" alt="DEMO" class="center" width="900" height="600" >
 <p>Clicked the empty tile and now a new wolf appears.</p>
 <img src="assets/add-after.png" alt="DEMO" class="center" width="900" height="600" >
+</a></div>
+
+<div id="remove"><a id="remove">
 <h2>Removing creatures</h2>
 <p>In the game, you can also manipulate populations by removing some existing creatures.</p>
 <p>Now, in the image below, the cursor selects a sheep tile to be removed.</p>
@@ -156,6 +94,9 @@
     Around the right-bottom, you can see three buttons. The skip allows you to jump to the end of the game if you want to skip the wait. 
     Clicking the pause button pauses the game and clicking it again to recover.
     End button allows you to terminate the game and to go back to the main page.</p>
+</a></div>
+
+<div id="populationGraph"><a id="populationGraph"></a>
 <h2>Population Graph</h2>
 <img src="assets/population_info.png" alt="DEMO" class="center" width="900" height="600" >
 <p>Clicking on the population graph icon, it will pop up a new window where the populations and resources are displayed in a graph. 
@@ -163,6 +104,42 @@
     the graph will contain all the information from the start of the game till the time you click the button.
     The following image is an example of population graph.</p>
 <img src="assets/population_graph.png" alt="DEMO" class="center" width="900" height="600" >
-<button class="continue-button" onclick="toSetup()">Continue</button>
+</a></div>
+
+<br>
+<div id="continue"><a id="continue"></a>
+<button class="continue-button" onclick="toSetup()">Continue</button></body>
+</a></div>
+<div class="sidenav">
+    <a href="guide.html#setup">Setup Guide</a>
+    <button class="dropdown-btn">Game Guide 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container">
+        <a href="guide.html#simulator">Simulator</a>
+        <a href="guide.html#map">The map</a>
+        <a href="guide.html#information">Information Panel</a>
+        <a href="guide.html#add">Add Creature</a>
+        <a href="guide.html#remove">Remove Creature</a>
+        <a href="guide.html#populationGraph">Population Graph</a>
+        <a href="guide.html#continue">Continue to Game</a>
+      </div>
+  </div>
 <script src="redirect.js"></script>
+<script>
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+</script>
 </html>
