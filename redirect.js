@@ -10,6 +10,12 @@ function toSetup(){
     window.location.href = 'setup.html';
 }
 
+function toWSStory(){
+    window.location.href = 'wolf_sheep_story.html';
+}
+function toCBStory(){
+    window.location.href = 'cat_bird_story.html';
+}
 function optionHandler(id){
     switch(id){
         case 1:{

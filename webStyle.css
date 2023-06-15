@@ -156,9 +156,8 @@ h2{
 
 p {
     font-size: 22px;
-    text-align: left;
-    text-indent: 50px;
     text-align: justify;
+    text-indent: 50px;
     margin-left: 25px;
     color:rgb(255, 255, 255);
     line-height: 1.25;
@@ -166,6 +165,16 @@ p {
 p.tip {
     color:rgb(239, 248, 58);
     font-size: 20px;
+}
+
+p.references {
+    font-size: 18px;
+    text-align: justify;
+    text-indent: 50px;
+    /* margin-left: 25px; */
+    color:rgb(255, 255, 255);
+    line-height: 1.25;
+    /* white-space: pre-wrap; */
 }
 
 input{
