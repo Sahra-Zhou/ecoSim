@@ -46,6 +46,7 @@
 <script>
     //function getSpecies(){
     var chooseResources = document.getElementById('chooseResources');
+    chooseResources .style.color = "#ffffff";
     var isUserChoice = localStorage.getItem('userChoice');
     var choices = document.getElementById('ChosenSpecies');
     // console.log(isUserChoice);
@@ -107,11 +108,12 @@
         var validResources = true;
         var isUserChoice = localStorage.getItem('userChoice');
         if(isUserChoice == 'true')
-        {var resourcesAmnt = document.getElementById('AvailableResources');
-        var num = parseInt(resourcesAmnt.value);
-        if(num < 0 || num > 20000){
-            validResources = false;
-        }
+        {
+            var resourcesAmnt = document.getElementById('AvailableResources');
+            var num = parseInt(resourcesAmnt.value);
+            if(num < 0 || num > 20000){
+                validResources = false;
+            }
         localStorage.setItem('Environment', num);}
         for(var i=0; i<species.length; i++){
             population = document.getElementById(species[i]).value;
