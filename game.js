@@ -667,8 +667,8 @@ function preload ()
     this.load.setBaseURL('http://labs.phaser.io');
 
     // load image
-    //this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
-    this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
+    this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
+    //this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
     
 }
 
@@ -692,7 +692,7 @@ function create ()
 
     statusText = this.add.text(550, 100, 'Species: -- Health: --', { fontSize: '20px', align: "right", wordWrap: { width: 350, useAdvancedWrap: true},fill: '#000'});
     tiles = Array(tileHeight).fill().map(() => Array(tileWidth).fill(0));
-    var options = "Press key to add species ";
+    var options = "Press key to set the species to add ";
     for(s of currentSpecies){
         const info = speciesInfo[s];
         options += s+": "+info.id+ " ";        
@@ -797,18 +797,22 @@ function update(time, delta){
     
     marker.x = map.tileToWorldX(pointerTileX);
     marker.y = map.tileToWorldY(pointerTileY);
-    if(creatures.length==0 && emptyStart == false){
+    if((creatures.length==0 || resources == 0) && emptyStart == false){
         ends=true;
+        if(resources == 0){
+            endText.setColor('#BE741C');
+            endText.setText(`Your ecosystem lasted over ${Math.floor(day/365)} years but creatures have exhausted all the resources. Try next time`);
+        }
         if(day < 365*2){
             endText.setText(`All Creatures are dead:( Your ecosystem only lasted ${day} days.`);
         }
         else if(day < 2000){
             endText.setColor('#F07A01');
-            endText.setText(`All Creatures are dead. Your ecosystem have lasted over ${Math.floor(day/365)} years. Not bad:)`);
+            endText.setText(`Your ecosystem have lasted over ${Math.floor(day/365)} years. Not bad:)`);
         }
         else{
             endText.setColor('#F07A01');
-            endText.setText(`All Creatures are dead. Your ecosystem lasted over ${Math.floor(day/365)} years. Good Job!`);
+            endText.setText(`Your ecosystem lasted over ${Math.floor(day/365)} years. Good Job!`);
         }
 
         localStorage.setItem('countPopulation', JSON.stringify(countPop));

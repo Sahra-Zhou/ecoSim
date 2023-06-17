@@ -7,19 +7,23 @@
 <body>
 
 <h1>Ecosystem Simulator</h1>
-<p>Population Graph</p>
+<p>Population Graph without Resources</p>
 <head>
     <script src="https://cdn.plot.ly/plotly-2.20.0.min.js" charset="utf-8"></script>
 </head>
-<div id="tester" style="width:600px;height:250px;"></div>
-<div id="resourcesGraph" style="width:600px;height:250px;"></div>
+<div id="tester" style="width:800px;height:500px;"></div>
+<br>
+<br>
+<p>Population Graph with Resources</p>
+<div id="resourcesGraph" style="width:800px;height:500px;"></div>
 <script>
 	TESTER = document.getElementById('tester');
     var cntpop = JSON.parse(localStorage.getItem('countPopulation'));
     var keys = Object.keys(cntpop);
+    var data_all = [];
     var data = [];
-    const colors = ['rgb(219, 64, 82)', 'rgb(55, 128, 191)', 'rgb(128, 0, 128)', 'rgb(55, 28, 191)', 'rgb(155, 128, 191)'];
-    for(var i=0; i< keys.length-1; i++){
+    const colors = ['rgb(219, 64, 82)', 'rgb(55, 128, 191)', 'rgb(55, 28, 191)', 'rgb(155, 128, 191)', 'rgb(128, 0, 128)'];
+    for(var i=0; i< keys.length-2; i++){
         var trace = {
             type: 'scatter',
             x: cntpop['Day'],
@@ -30,12 +34,22 @@
             color: colors[i],
             width: 3}
         };
-        console.log(cntpop[keys[i]]);
+        data_all.push(trace);
         data.push(trace);
     }
     var layout = {
         width: 800,
-        height: 500
+        height: 500,
+        xaxis: {
+
+            title: {
+                text: 'Day',
+                font: {
+                size: 18,
+                color: '#7f7f7f'
+            }
+        },
+  },
     };
 
 	Plotly.newPlot( TESTER, data, layout);
@@ -46,10 +60,11 @@
             mode: 'lines',
             name: 'Resources',
             line: {
-            color: 'rgb(155, 128, 191)',
+            color: 'rgb(128, 0, 128)',
             width: 3}
         };
+    data_all.push(trace2);
     var resGraph = document.getElementById('resourcesGraph');
-   //Plotly.newPlot(resGraph, trace2, layout);
+   Plotly.newPlot(resGraph, data_all, layout);
 </script>
 </html>
