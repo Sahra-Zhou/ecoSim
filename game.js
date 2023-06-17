@@ -756,6 +756,16 @@ function create ()
             helpText.setText("Current species to add: Sorry Bird is not among your selected species");
         }
     });
+    this.input.keyboard.on('keydown-FIVE', (event) =>
+    {
+        objectToPlace = 'Fox';
+        if(currentSpecies.includes('Fox')){
+            helpText.setText("Current species to add: Fox");
+        }
+        else{
+            helpText.setText("Current species to add: Sorry Bird is not among your selected species");
+        }
+    });
 
     //generate tilemap
     map = this.make.tilemap({
