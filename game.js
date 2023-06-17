@@ -30,7 +30,7 @@ var updateText;
 //Default amount of available resources for plain (option 1) and island (option 2)
 const envResources = {
     Plain: 15000,
-    Island: 2000,
+    Island: 3000,
 }
 //Create an object to store game settings
 var gameSetting = new Object();
@@ -113,15 +113,14 @@ const speciesInfo = {
         repLevel: 50,
         deathLevel: 20,
         energy: 1, //the energy it provides to its predator
-        repFood: 0.1,
+        repFood: 0.075,
         food: 'Resources',
         repRate: 365,
         distance: 3,
         toPrey: 1,
-        eatAmount: 2,
         packNum: 150,
         packMax: 250,
-        repNum: 0.7,
+        repNum: 0.5,
     },
     Cat: {
         species: 'Cat',
@@ -139,7 +138,7 @@ const speciesInfo = {
         toPrey: 2,
         packNum: 8,
         packMax: 15,
-        repNum: 0.65,
+        repNum: 0.75,
     },
     Bird: {
         species: 'Bird',
@@ -150,15 +149,14 @@ const speciesInfo = {
         repLevel: 50,
         deathLevel: 20,
         food: 'Resources',
-        repFood: 0.02,
+        repFood: 0.01,
         energy: 0.1,
         repRate: 365,
         distance: 2,
         toPrey: 1,
         lifespan: 600,
-        eatAmount: 0.1,
-        packNum: 25,
-        packMax: 60,
+        packNum: 10,
+        packMax: 40,
         repNum: 0.5,
     },
     Fox: {
@@ -459,7 +457,7 @@ function packActivity2(pack, i){
             //calculate the amount of offsprings
             const newborns = Math.ceil(info.repNum * pack.population);
 
-            if(pack.population+newborns<info.packMax){
+            if(pack.population+newborns<=info.packMax){
                 //the population size does not exceed the max population size
                 pack.population += newborns;
             }
@@ -475,8 +473,8 @@ function packActivity2(pack, i){
     //calculate death rate of the pack/flock based on its current health level
     pack.deathRate = Math.max(1, Math.min(100, pack.deathRate - healthToDeathRate(pack.health)));
     //death
-    if(pack.age % 7 == 0){
-        //do a "death check" every 7 days
+    if(pack.age % 30 == 0){
+        //do a "death check" for every member
         var death = 0;
         const total = pack.population;
         for(var j=0; j<total; j++){
@@ -564,7 +562,7 @@ function dailyActivity2(){
     }
     if(day%7 == 0){
         //reproduce resources every 7 days
-        resources = Math.min(gameSetting['Environment'], resources+Math.ceil(resources*0.5));
+        resources = Math.min(gameSetting['Environment']*2, resources+Math.ceil(resources*0.75));
     }
 }
 
@@ -669,8 +667,8 @@ function preload ()
     this.load.setBaseURL('http://labs.phaser.io');
 
     // load image
-    this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
-    //this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
+    //this.load.image('tile', "https://ecosimulator.netlify.app/creatures_images.jpg");
+    this.load.image('tile', 'http://localhost:8888/creatures_images.jpg');
     
 }
 
@@ -801,7 +799,18 @@ function update(time, delta){
     marker.y = map.tileToWorldY(pointerTileY);
     if(creatures.length==0 && emptyStart == false){
         ends=true;
-        endText.setText(`All Creatures are dead:( Your ecosystem lasted ${day} days.`);
+        if(day < 365*2){
+            endText.setText(`All Creatures are dead:( Your ecosystem only lasted ${day} days.`);
+        }
+        else if(day < 2000){
+            endText.setColor('#F07A01');
+            endText.setText(`All Creatures are dead. Your ecosystem have lasted over ${Math.floor(day/365)} years. Not bad:)`);
+        }
+        else{
+            endText.setColor('#F07A01');
+            endText.setText(`All Creatures are dead. Your ecosystem lasted over ${Math.floor(day/365)} years. Good Job!`);
+        }
+
         localStorage.setItem('countPopulation', JSON.stringify(countPop));
         localStorage.setItem('showGraph', JSON.stringify(true));
     }
@@ -862,10 +871,10 @@ function fillMapAfterSkip(){
 function quickEndGame(){
     isPause = true;
     doSkip = true;
-    while(creatures.length>0 && day<5000){
+    while(creatures.length>0 && day<3660){
         day ++;
-        //dayActivity();
         dailyActivity2();
+        updatePopulation();
         creatures = creatures.filter(function( obj ) {
             return obj.alive;
         });
@@ -876,7 +885,8 @@ function quickEndGame(){
     gameDayText.setText("Days: "+day);
     localStorage.setItem('countPopulation', JSON.stringify(countPop));
     if(creatures.length > 0){
-        endText.setText("Congratulation! Your ecosystem lasted over 5000 days!");
+        endText.setColor('#E61C28');
+        endText.setText("Congratulation! Your ecosystem lasted over 10 years!");
     }
 }
 
